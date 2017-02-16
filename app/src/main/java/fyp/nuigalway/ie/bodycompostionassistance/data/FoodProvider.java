@@ -142,7 +142,29 @@ public class FoodProvider extends ContentProvider {
 
     @Override
     public int delete(Uri uri, String s, String[] strings) {
-        return 0;
+
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        final int match = UM.match(uri);
+
+        if(match == FOODS)
+        {
+            return db.delete(FoodEntry.TABLE_NAME, s, strings);
+        }
+        else if(match == FOODS_ID){
+
+            s = FoodEntry._ID + "=?";
+            strings = new String[] {String.valueOf(ContentUris.parseId(uri))};
+
+            return db.delete(FoodEntry.TABLE_NAME, s, strings);
+        }
+        else
+        {
+
+            throw new IllegalArgumentException("Cannot delete " + uri);
+        }
+
+
     }
 
     @Override
