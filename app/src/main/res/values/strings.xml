@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Body Compostion Assistance</string>
+    <string name="food_info">Information</string>
+    <string name="hint_food_name">Name</string>
+    <string name="hint_food_cal">Calories</string>
+    <string name="hint_food_carb">Carbohydrates</string>
+    <string name="hint_food_fat">Fats</string>
+    <string name="hint_food_prot">Protein</string>
+    <string name="hint_food_desc">Description</string>
+    <string name="edit_activity_title_new_food">Add New Food</string>
+
+    <string name="save_action">Save</string>
+    <string name="delete_action">Delete</string>
+    <string name="insert_food_failed">Error with saving food</string>
+    <string name="insert_food_successful">Food saved successfully</string>
+    <string name="app_label">Search</string>
+    <string name="search_hint">Search for Food</string>
+</resources>

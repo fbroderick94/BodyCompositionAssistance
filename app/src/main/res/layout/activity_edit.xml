@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_edit"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    tools:context="fyp.nuigalway.ie.bodycompostionassistance.EditActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:text="@string/food_info"
+            style="@style/CategoryStyle" />
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:paddingLeft="4dp"
+            android:orientation="vertical">
+
+            <!-- Name field -->
+            <EditText
+                android:id="@+id/edit_food_name"
+                android:hint="@string/hint_food_name"
+                android:inputType="textCapWords"
+                style="@style/EditorFieldStyle" />
+            <EditText
+                android:id="@+id/edit_food_cal"
+                android:hint="@string/hint_food_cal"
+                android:inputType="textCapWords"
+                style="@style/EditorFieldStyle"/>
+            <EditText
+                android:id="@+id/edit_food_carb"
+                android:hint="@string/hint_food_carb"
+                android:inputType="textCapWords"
+                style="@style/EditorFieldStyle"/>
+            <EditText
+                android:id="@+id/edit_food_fat"
+                android:hint="@string/hint_food_fat"
+                android:inputType="textCapWords"
+                style="@style/EditorFieldStyle"/>
+            <EditText
+                android:id="@+id/edit_food_prot"
+                android:hint="@string/hint_food_prot"
+                android:inputType="textCapWords"
+                style="@style/EditorFieldStyle"/>
+            <EditText
+                android:id="@+id/edit_food_desc"
+                android:hint="@string/hint_food_desc"
+                android:inputType="textCapWords"
+                style="@style/EditorFieldStyle"/>
+
+    </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
