@@ -69,6 +69,7 @@ public class FoodProvider extends ContentProvider {
             throw new IllegalArgumentException("Unknown query URI " + uri);
         }
 
+        cursor.setNotificationUri(getContext().getContentResolver(), uri);
 
         return cursor;
     }
@@ -150,6 +151,8 @@ public class FoodProvider extends ContentProvider {
             return null;
         }
 
+        getContext().getContentResolver().notifyChange(uri, null);
+
         return ContentUris.withAppendedId(uri, id);
     }
 
@@ -158,18 +161,21 @@ public class FoodProvider extends ContentProvider {
 
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
+
+        int rowsDeleted;
         final int match = UM.match(uri);
 
         if(match == FOODS)
         {
-            return db.delete(FoodEntry.TABLE_NAME, s, strings);
+            rowsDeleted = db.delete(FoodEntry.TABLE_NAME, s, strings);
+
         }
         else if(match == FOODS_ID){
 
             s = FoodEntry._ID + "=?";
             strings = new String[] {String.valueOf(ContentUris.parseId(uri))};
 
-            return db.delete(FoodEntry.TABLE_NAME, s, strings);
+            rowsDeleted = db.delete(FoodEntry.TABLE_NAME, s, strings);
         }
         else
         {
@@ -177,6 +183,11 @@ public class FoodProvider extends ContentProvider {
             throw new IllegalArgumentException("Cannot delete " + uri);
         }
 
+        if(rowsDeleted != 0){
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+
+        return rowsDeleted;
 
     }
 
@@ -265,7 +276,14 @@ public class FoodProvider extends ContentProvider {
 
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        return db.update(FoodEntry.TABLE_NAME, values, selection, selectionArgs);
+
+        int updatedRows = db.update(FoodEntry.TABLE_NAME, values, selection, selectionArgs);
+
+        if(updatedRows !=0){
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+
+        return updatedRows;
 
     }
 }

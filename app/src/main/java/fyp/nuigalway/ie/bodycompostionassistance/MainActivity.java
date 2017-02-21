@@ -1,8 +1,11 @@
 package fyp.nuigalway.ie.bodycompostionassistance;
 
+import android.app.LoaderManager;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,8 +16,12 @@ import android.support.design.widget.FloatingActionButton;
 import fyp.nuigalway.ie.bodycompostionassistance.data.FoodHelper;
 import fyp.nuigalway.ie.bodycompostionassistance.data.FoodContract.FoodEntry;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
+
+    private static final int FOOD_LOADER = 0;
+
+    FoodAdapter cAdapter;
 
 
     @Override
@@ -35,37 +42,53 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        ListView displayView = (ListView) findViewById(R.id.text_view_food);
+
+        View emptyView = findViewById(R.id.empty_view);
+        displayView.setEmptyView(emptyView);
+
+
+        cAdapter = new FoodAdapter(this, null);
+        displayView.setAdapter(cAdapter);
+
+        getLoaderManager().initLoader(FOOD_LOADER, null, this);
+
+
     }
 
     protected void onStart()
     {
         super.onStart();
-        displayDatabaseInfo();
+
     }
 
-    private void displayDatabaseInfo() {
 
 
-
+    @Override
+    public android.content.Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         String[] results = {
                 FoodEntry._ID,
                 FoodEntry.COLUMN_FOOD_NAME,
-                FoodEntry.COLUMN_FOOD_CAL,
-                FoodEntry.COLUMN_FOOD_CARB,
-                FoodEntry.COLUMN_FOOD_FAT,
-                FoodEntry.COLUMN_FOOD_PROT
-
+                FoodEntry.COLUMN_FOOD_CAL
         };
 
-       // Cursor cursor = db.query(FoodEntry.TABLE_NAME, results, null,null,null,null,null);
-        Cursor cursor = getContentResolver().query(FoodEntry.CONTENT_URI , results, null, null, null);
-
-        ListView displayView = (ListView) findViewById(R.id.text_view_food);
-
-        FoodAdapter adapter = new FoodAdapter(this, cursor);
-
-        displayView.setAdapter(adapter);
-
+        return new android.content.CursorLoader(this,
+                FoodEntry.CONTENT_URI,
+                results,
+                null,
+                null,
+                null);
     }
 
+    @Override
+    public void onLoadFinished(android.content.Loader<Cursor> loader, Cursor cursor) {
+
+        cAdapter.swapCursor(cursor);
+    }
+
+    @Override
+    public void onLoaderReset(android.content.Loader<Cursor> loader) {
+
+        cAdapter.swapCursor(null);
+    }
 }
