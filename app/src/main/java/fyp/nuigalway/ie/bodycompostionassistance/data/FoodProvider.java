@@ -76,7 +76,20 @@ public class FoodProvider extends ContentProvider {
     @Nullable
     @Override
     public String getType(Uri uri) {
-        return null;
+
+        final int match = UM.match(uri);
+
+        if(match == FOODS)
+        {
+            return FoodEntry.LIST_CONTENT;
+        }
+        else if (match == FOODS_ID)
+        {
+            return FoodEntry.ITEM_CONTENT;
+        }
+        else
+            throw new IllegalStateException("Unknown URI" + uri);
+
     }
 
     @Nullable

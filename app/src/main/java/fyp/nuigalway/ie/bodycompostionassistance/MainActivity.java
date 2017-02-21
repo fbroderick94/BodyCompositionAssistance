@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.support.design.widget.FloatingActionButton;
 
@@ -59,28 +60,12 @@ public class MainActivity extends AppCompatActivity {
        // Cursor cursor = db.query(FoodEntry.TABLE_NAME, results, null,null,null,null,null);
         Cursor cursor = getContentResolver().query(FoodEntry.CONTENT_URI , results, null, null, null);
 
-        TextView displayView = (TextView) findViewById(R.id.text_view_food);
-        try {
+        ListView displayView = (ListView) findViewById(R.id.text_view_food);
 
+        FoodAdapter adapter = new FoodAdapter(this, cursor);
 
-            displayView.setText("Number of rows in foods database table: " + cursor.getCount());
-            //displayView.append("\n" + FoodEntry._ID + " - " + FoodEntry.COLUMN_FOOD_NAME + "\n");
+        displayView.setAdapter(adapter);
 
-            int idIndex = cursor.getColumnIndex(FoodEntry._ID);
-            int nameIndex = cursor.getColumnIndex(FoodEntry.COLUMN_FOOD_NAME);
-
-
-
-            while(cursor.moveToNext()){
-                int id = cursor.getInt(idIndex);
-                String name = cursor.getString(nameIndex);
-                displayView.append(("\n" + id + " - " + name));
-            }
-
-        } finally {
-
-            cursor.close();
-        }
     }
 
 }
