@@ -1,6 +1,7 @@
 package fyp.nuigalway.ie.bodycompostionassistance;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.v4.app.NavUtils;
@@ -28,6 +29,17 @@ public class EditActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
+
+
+        Intent intent = getIntent();
+        Uri currentUri = intent.getData();
+
+
+        if(currentUri == null){
+            setTitle("Add a Food");
+        }
+        else
+            setTitle(getString(R.string.edit_activity_title_edit_food));
 
         EditName = (EditText) findViewById(R.id.edit_food_name);
         EditCal = (EditText) findViewById(R.id.edit_food_cal);

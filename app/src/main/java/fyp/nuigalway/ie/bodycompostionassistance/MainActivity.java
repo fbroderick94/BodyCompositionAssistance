@@ -1,14 +1,16 @@
 package fyp.nuigalway.ie.bodycompostionassistance;
 
 import android.app.LoaderManager;
+import android.content.ContentUris;
 import android.content.Intent;
 import android.database.Cursor;
-
+import android.net.Uri;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.support.design.widget.FloatingActionButton;
@@ -50,6 +52,21 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         cAdapter = new FoodAdapter(this, null);
         displayView.setAdapter(cAdapter);
+
+
+        displayView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View itemView, int positon, long id) {
+
+                Intent intent = new Intent(MainActivity.this, EditActivity.class);
+
+
+                Uri currentUri = ContentUris.withAppendedId(FoodEntry.CONTENT_URI, id);
+                intent.setData(currentUri);
+                startActivity(intent);
+
+            }
+        });
 
         getLoaderManager().initLoader(FOOD_LOADER, null, this);
 
