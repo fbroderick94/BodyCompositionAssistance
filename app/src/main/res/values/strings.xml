@@ -16,4 +16,6 @@
     <string name="app_label">Search</string>
     <string name="search_hint">Search for Food</string>
     <string name="edit_activity_title_edit_food">Edit Food</string>
+    <string name="edit_food_failed">Error with Updating Food</string>
+    <string name="edit_food_successful">Food successfully updated</string>
 </resources>
