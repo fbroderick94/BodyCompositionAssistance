@@ -1,8 +1,10 @@
 package fyp.nuigalway.ie.bodycompostionassistance;
 
+import android.app.AlertDialog;
 import android.app.LoaderManager;
 import android.content.ContentValues;
 import android.content.CursorLoader;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
@@ -14,6 +16,8 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -33,6 +37,20 @@ public class EditActivity extends AppCompatActivity implements LoaderManager.Loa
     private static final int FOOD_LOADER = 0;
     private Uri currentUri;
 
+
+    private boolean hasFoodChanged = false;
+
+
+
+    private View.OnTouchListener tl = new View.OnTouchListener(){
+
+        @Override
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            hasFoodChanged = true;
+            return false;
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +63,8 @@ public class EditActivity extends AppCompatActivity implements LoaderManager.Loa
 
         if(currentUri == null){
             setTitle(getString(R.string.edit_activity_title_new_food));
+
+            invalidateOptionsMenu();
         }
         else {
             setTitle(getString(R.string.edit_activity_title_edit_food));
@@ -58,6 +78,14 @@ public class EditActivity extends AppCompatActivity implements LoaderManager.Loa
         EditFats = (EditText) findViewById(R.id.edit_food_fat);
         EditProt = (EditText) findViewById(R.id.edit_food_prot);
         EditDesc = (EditText) findViewById(R.id.edit_food_desc);
+
+
+        EditName.setOnTouchListener(tl);
+        EditCal.setOnTouchListener(tl);
+        EditCarbs.setOnTouchListener(tl);
+        EditFats.setOnTouchListener(tl);
+        EditProt.setOnTouchListener(tl);
+        EditDesc.setOnTouchListener(tl);
     }
 
 
@@ -144,14 +172,21 @@ public class EditActivity extends AppCompatActivity implements LoaderManager.Loa
 
 
 
-
-
     public boolean onCreateOptionsMenu(Menu m)
     {
             getMenuInflater().inflate(R.menu.menu_edit, m);
             return true;
     }
 
+    public boolean onPrepareOptionsMenu(Menu menu){
+        super.onPrepareOptionsMenu(menu);
+
+        if(currentUri == null){
+            MenuItem item = menu.findItem(R.id.action_delete);
+            item.setVisible(false);
+        }
+        return true;
+    }
 
 
     public boolean onOptionsItemSelected(MenuItem item)
@@ -163,10 +198,26 @@ public class EditActivity extends AppCompatActivity implements LoaderManager.Loa
         }
         else if(item.getItemId() == R.id.action_delete)
         {
+            showDeleteConfirmationDialog();
             return true;
         }
         else if(item.getItemId() == android.R.id.home){
-            NavUtils.navigateUpFromSameTask(this);
+
+            if(!hasFoodChanged)
+            {
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+            }
+
+            DialogInterface.OnClickListener discardButtonClickListener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    //The discard button was clicked so navigate to parent
+                    NavUtils.navigateUpFromSameTask(EditActivity.this);
+                }
+            };
+
+            showUnsavedChangesDialog(discardButtonClickListener);
             return true;
         }
 
@@ -236,5 +287,97 @@ public class EditActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
 
+    }
+
+
+    private void showUnsavedChangesDialog(DialogInterface.OnClickListener discardButtonListener){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.unsaved_dialog_message);
+        builder.setPositiveButton(R.string.discard, discardButtonListener);
+        builder.setNegativeButton(R.string.continue_editing, new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if(dialogInterface != null){
+                    dialogInterface.dismiss();
+                }
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    public void onBackPressed(){
+
+
+        //If the user has not altered the food, handle the back button press normally
+        if(!hasFoodChanged){
+            super.onBackPressed();
+            return;
+        }
+
+
+        //If the user has edited the food and made changes, create a dialog to warn them
+        DialogInterface.OnClickListener discardButtonClickListener =
+                new DialogInterface.OnClickListener(){
+
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                    }
+                };
+
+        //Display dialog that are unsaved changes
+        showUnsavedChangesDialog(discardButtonClickListener);
+    }
+
+
+    private void showDeleteConfirmationDialog(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.delete_dialog_message);
+        builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i)
+            {
+
+                deleteFood();
+            }
+        });
+
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                if(dialogInterface != null)
+                {
+                    dialogInterface.dismiss();
+                }
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+    }
+
+    private void deleteFood(){
+
+        if(currentUri != null){
+
+            int rowsDeleted = getContentResolver().delete(currentUri, null, null);
+
+            if(rowsDeleted == 0){
+                Toast.makeText(this, getString(R.string.edit_delete_food_failed), Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Toast.makeText(this, getString(R.string.edit_activity_food_successful), Toast.LENGTH_SHORT).show();
+            }
+
+            finish();
+
+        }
     }
 }

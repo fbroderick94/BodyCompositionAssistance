@@ -18,4 +18,13 @@
     <string name="edit_activity_title_edit_food">Edit Food</string>
     <string name="edit_food_failed">Error with Updating Food</string>
     <string name="edit_food_successful">Food successfully updated</string>
+    <string name="unsaved_dialog_message">Do you want to discard your changes?</string>
+    <string name="discard">Discard</string>
+    <string name="continue_editing">Continue Editing</string>
+    <string name="delete_dialog_message">Delete this food?</string>
+    <string name="delete">Delete</string>
+    <string name="edit_delete_food_failed">Error in deleting food</string>
+    <string name="edit_activity_food_successful">Food successfully deleted</string>
+    <string name="cancel">Cancel</string>
+    <string name="unknown_cal">Unknown Calories</string>
 </resources>

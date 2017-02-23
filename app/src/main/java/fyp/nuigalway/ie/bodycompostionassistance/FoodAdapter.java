@@ -2,6 +2,7 @@ package fyp.nuigalway.ie.bodycompostionassistance;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,15 @@ public class FoodAdapter extends CursorAdapter {
 
         //Populating the text views with the relevant info
         tvName.setText(name);
-        tvCals.setText(Integer.toString(cals) + " cals per 100g");
+
+        if(cals <= 0)
+        {
+            tvCals.setText(context.getString(R.string.unknown_cal));
+        }
+        else
+        {
+
+            tvCals.setText(Integer.toString(cals) + " cals per 100g");
+        }
     }
 }
