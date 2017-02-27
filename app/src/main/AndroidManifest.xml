@@ -9,27 +9,34 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="fyp.nuigalway.ie.bodycompostionassistance.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name">
+
+        </activity>
+        <activity
+            android:name=".EditActivity"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity android:name=".SelectMealActivity" />
+
+        <provider
+            android:name=".data.FoodProvider"
+            android:authorities="fyp.nuigalway.ie.bodycompostionassistance"
+            android:exported="false" />
+
+        <activity android:name=".LoginActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name="fyp.nuigalway.ie.bodycompostionassistance.EditActivity"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"/>
-        </activity>
-        <activity android:name="fyp.nuigalway.ie.bodycompostionassistance.SelectMealActivity"></activity>
-
-        <provider
-            android:name="fyp.nuigalway.ie.bodycompostionassistance.data.FoodProvider"
-            android:authorities="fyp.nuigalway.ie.bodycompostionassistance"
-            android:exported="false" />
+            </activity>
+        <activity android:name=".RegisterActivity"></activity>
     </application>
 
 </manifest>
