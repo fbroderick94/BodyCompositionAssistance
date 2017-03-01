@@ -54,6 +54,8 @@ public class LoginActivity extends Activity {
                     final String email = etEmailLogin.getText().toString();
                     final String password = etPasswordLogin.getText().toString();
 
+                    System.out.println("Email: " + email);
+                    System.out.println("Password: " + password);
 
                     Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
@@ -62,8 +64,7 @@ public class LoginActivity extends Activity {
                             JSONObject jsonResponse = new JSONObject(response);
                             boolean success = jsonResponse.getBoolean("success");
 
-                            System.out.println("Email: " + email);
-                            System.out.println("Password: " + password);
+
 
                             if (success) {
 
