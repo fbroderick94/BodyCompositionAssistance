@@ -11,9 +11,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.support.design.widget.FloatingActionButton;
+
+import java.util.ArrayList;
 
 import fyp.nuigalway.ie.bodycompostionassistance.data.FoodHelper;
 import fyp.nuigalway.ie.bodycompostionassistance.data.FoodContract.FoodEntry;
@@ -24,6 +27,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private static final int FOOD_LOADER = 0;
 
     FoodAdapter cAdapter;
+
+    ArrayList<Uri> foods;
 
 
     @Override
@@ -44,7 +49,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         });
 
 
-        ListView displayView = (ListView) findViewById(R.id.text_view_food);
+       // TextView searchView = (TextView) findViewById(R.id.etSearch);
+        final ListView displayView = (ListView) findViewById(R.id.text_view_food);
 
         View emptyView = findViewById(R.id.empty_view);
         displayView.setEmptyView(emptyView);
@@ -52,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         cAdapter = new FoodAdapter(this, null);
         displayView.setAdapter(cAdapter);
+
 
 
         displayView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -67,6 +74,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
             }
         });
+
+
+
+
 
         getLoaderManager().initLoader(FOOD_LOADER, null, this);
 

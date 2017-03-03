@@ -42,6 +42,7 @@ public class FoodAdapter extends CursorAdapter {
         int cals = cursor.getInt(cursor.getColumnIndex(FoodEntry.COLUMN_FOOD_CAL));
 
 
+
         //Populating the text views with the relevant info
         tvName.setText(name);
 
