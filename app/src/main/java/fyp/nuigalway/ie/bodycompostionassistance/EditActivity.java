@@ -98,7 +98,7 @@ public class EditActivity extends AppCompatActivity implements LoaderManager.Loa
         String protString = EditProt.getText().toString().trim();
         String descString = EditDesc.getText().toString().trim();
 
-
+        System.out.println("String: " + carbString);
 
 
 
@@ -116,21 +116,22 @@ public class EditActivity extends AppCompatActivity implements LoaderManager.Loa
         }
 
 
-        int carbohydrates = 0;
+        double carbohydrates = 0;
         if(!TextUtils.isEmpty(carbString))
         {
-            carbohydrates = Integer.parseInt(carbString);
+            carbohydrates = Double.parseDouble(carbString);
+            System.out.println("Double: " + carbohydrates);
         }
 
-        int fats = 0;
+        double fats = 0;
         if(!TextUtils.isEmpty(fatString))
         {
-            fats = Integer.parseInt(fatString);
+            fats = Double.parseDouble(fatString);
         }
 
-        int protein = 0;
+        double protein = 0;
         if(!TextUtils.isEmpty(protString)) {
-            protein = Integer.parseInt(protString);
+            protein = Double.parseDouble(protString);
         }
 
 
@@ -270,16 +271,16 @@ public class EditActivity extends AppCompatActivity implements LoaderManager.Loa
 
             String name  = cursor.getString(nameColumnIndex);
             int cal = cursor.getInt(calColumnIndex);
-            int carb = cursor.getInt(carbColumnIndex);
-            int fat = cursor.getInt(fatColumnIndex);
-            int prot = cursor.getInt(protColumnIndex);
+            double carb = cursor.getDouble(carbColumnIndex);
+            double fat = cursor.getDouble(fatColumnIndex);
+            double prot = cursor.getDouble(protColumnIndex);
             String desc = cursor.getString(descColumnIndex);
 
             EditName.setText(name);
             EditCal.setText(Integer.toString(cal));
-            EditCarbs.setText(Integer.toString(carb));
-            EditFats.setText(Integer.toString(fat));
-            EditProt.setText(Integer.toString(prot));
+            EditCarbs.setText(Double.toString(carb));
+            EditFats.setText(Double.toString(fat));
+            EditProt.setText(Double.toString(prot));
             EditDesc.setText(desc);
         }
     }

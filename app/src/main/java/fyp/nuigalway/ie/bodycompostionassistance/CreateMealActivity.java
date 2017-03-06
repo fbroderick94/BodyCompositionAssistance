@@ -50,7 +50,7 @@ public class CreateMealActivity extends AppCompatActivity implements LoaderManag
 
                 Uri currentUri = ContentUris.withAppendedId(FoodContract.FoodEntry.CONTENT_URI, id);
                 foods.add(currentUri);
-                System.out.println(foods.get(0));
+               // System.out.println(foods.get(0));
 
 
             }
@@ -64,7 +64,7 @@ public class CreateMealActivity extends AppCompatActivity implements LoaderManag
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(CreateMealActivity.this, EditActivity.class);
+                Intent intent = new Intent(CreateMealActivity.this, MealResultActivity.class);
                 intent.putExtra("foods", foods);
                 startActivity(intent);
             }

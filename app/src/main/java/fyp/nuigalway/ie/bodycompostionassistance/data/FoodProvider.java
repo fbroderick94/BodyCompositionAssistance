@@ -240,7 +240,7 @@ public class FoodProvider extends ContentProvider {
         if (values.containsKey(FoodEntry.COLUMN_FOOD_CARB))
         {
 
-            Integer carbs = values.getAsInteger((FoodEntry.COLUMN_FOOD_CARB));
+            Double carbs = values.getAsDouble((FoodEntry.COLUMN_FOOD_CARB));
             if(carbs == null || carbs < 0)
             {
                 throw new IllegalArgumentException("Food requires a Carbohydrate value");
@@ -250,7 +250,7 @@ public class FoodProvider extends ContentProvider {
         if (values.containsKey(FoodEntry.COLUMN_FOOD_FAT))
         {
 
-            Integer fats = values.getAsInteger((FoodEntry.COLUMN_FOOD_FAT));
+            Double fats = values.getAsDouble((FoodEntry.COLUMN_FOOD_FAT));
             if(fats == null || fats < 0)
             {
                 throw new IllegalArgumentException("Food requires a Fat value");
@@ -260,7 +260,7 @@ public class FoodProvider extends ContentProvider {
         if (values.containsKey(FoodEntry.COLUMN_FOOD_PROT))
         {
 
-            Integer prot = values.getAsInteger((FoodEntry.COLUMN_FOOD_PROT));
+            Double prot = values.getAsDouble((FoodEntry.COLUMN_FOOD_PROT));
             if(prot == null || prot < 0)
             {
                 throw new IllegalArgumentException("Food requires a Protein value");
