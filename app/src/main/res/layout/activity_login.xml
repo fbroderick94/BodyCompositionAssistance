@@ -8,25 +8,18 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#17c46b"
     tools:context="fyp.nuigalway.ie.bodycompostionassistance.LoginActivity">
 
     <TextView
-        android:text="Sign Up"
+        android:text="Not a member? Sign Up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/bLogin"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="14dp"
+        android:textColor="#ffffff"
         android:id="@+id/tvSignUp" />
-
-    <Button
-        android:text="Login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/bLogin"
-        android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/tvSignUp"
-        android:layout_alignStart="@+id/tvSignUp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -51,4 +44,12 @@
         android:layout_alignLeft="@+id/etPasswordLogin"
         android:layout_alignStart="@+id/etPasswordLogin"
         android:layout_marginBottom="12dp" />
+
+    <Button
+        android:text="Login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bLogin"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

@@ -28,4 +28,6 @@
     <string name="cancel">Cancel</string>
     <string name="unknown_cal">Unknown Calories</string>
     <string name="RegistrationSuccessful">Registration successfull</string>
+    <string name="create_meal">Create your meal</string>
+    <string name="meal_result">Your Meal</string>
 </resources>
