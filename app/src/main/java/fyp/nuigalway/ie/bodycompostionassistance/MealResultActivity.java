@@ -120,15 +120,18 @@ public class MealResultActivity extends AppCompatActivity  {
 
                 TextView food1weight = (TextView) findViewById(R.id.food1_weight);
                 food1weight.setText("Food 1: " + name + ": " + round(weight, 0) + " grams");
-            }
-            /*float m1 = (float) carbs;
+
+            float m1 = (float) carbs;
             float m2 = (float) protein;
             float m3 = (float) fats;
             float values[]={m1,m2,m3};
             RelativeLayout linear=(RelativeLayout) findViewById(R.id.linear);
 
             values=calculateData(values);
-            linear.addView(new PieChart(this,values));*/
+            linear.addView(new PieChart(this,values));
+
+
+            }
 
         if(myMeal.size()>1)
         {
@@ -159,33 +162,127 @@ public class MealResultActivity extends AppCompatActivity  {
                 double mealfat = fat + fat2;
                 double mealprot = prot + prot2;
                 double division;
-                if(mealcarb > mealfat && mealcarb> mealprot)
-                {
-                    division = usersCarbs/mealcarb;
+                double weight1 = 0, weight2= 0;
 
-                }
-                else if(mealfat>mealcarb && mealfat>mealprot)
-                {
-                    division = usersFats/mealfat;
-                }
-                else
-                {
-                    division = usersProt/mealprot;
-                }
+                double aCarb1 = carb/mealcarb;
+                double aCarb2 = carb2/mealcarb;
+                double aFat1 = fat/mealfat;
+                double aFat2 = fat2/mealfat;
+                double aProt1 = prot/mealprot;
+                double aProt2 = prot2/mealprot;
 
-                calories = cal*division + cal2*division;
-                carbs = carb*division + carb2*division;
-                fats = fat*division + fat2*division;
-                protein = prot*division + prot2*division;
+                double food1ratio = (aCarb1+aFat1+aProt1)/3;
+                double food2ratio = (aCarb2+aFat2+aProt2)/3;
+
+
+                double food1cals = usersCals*food1ratio;
+                double food2cals = usersCals*food2ratio;
+
+
+                double food1division = food1cals/cal;
+                double food2division = food2cals/cal2;
+
+
+
+                calories = cal*food1division + cal2*food2division;
+                carbs = carb*food1division + carb2*food2division;
+                fats = fat*food1division + fat2*food2division;
+                protein = prot*food1division + prot2*food2division;
+                weight1 = food1division*100;
+                weight2 = food2division*100;
+
+                double meal1percentage = carb/carbs;
+
 
                 TextView food1weight = (TextView) findViewById(R.id.food1_weight);
-                //food1weight.setText("Food 1: " + name + ": " + round(weight, 0) + " grams");
+                food1weight.setText("Food 1: " + name + ": " + round(weight1, 0) + " grams");
+                TextView food2weight = (TextView) findViewById(R.id.food2_weight);
+                food2weight.setText("Food 2: " + name2 + ": " + round(weight2, 0) + " grams");
+                TextView mealdetails = (TextView) findViewById(R.id.meal_details);
+                mealdetails.setText("Meal calories: " + round(calories, 0) + " \nCarbs: " + round(carbs, 1) + " \nFats: " + round(fats, 1) + " \nProtein: " + round(protein, 1));
+
+                float m1 = (float) carbs;
+                float m2 = (float) protein;
+                float m3 = (float) fats;
+                float values[]={m1,m2,m3};
+                RelativeLayout linear=(RelativeLayout) findViewById(R.id.linear);
+
+                values=calculateData(values);
+                linear.addView(new PieChart(this,values));
             }
         }
 
         if(myMeal.size() == 3)
         {
+            currentUri = myMeal.get(2);
 
+            cursor = getContentResolver().query(currentUri, results, null, null, null);
+
+            if(cursor.moveToFirst()) {
+                nameColumnIndex = cursor.getColumnIndex(FoodContract.FoodEntry.COLUMN_FOOD_NAME);
+                calColumnIndex = cursor.getColumnIndex(FoodContract.FoodEntry.COLUMN_FOOD_CAL);
+                carbColumnIndex = cursor.getColumnIndex(FoodContract.FoodEntry.COLUMN_FOOD_CARB);
+                fatColumnIndex = cursor.getColumnIndex(FoodContract.FoodEntry.COLUMN_FOOD_FAT);
+                protColumnIndex = cursor.getColumnIndex(FoodContract.FoodEntry.COLUMN_FOOD_PROT);
+                descColumnIndex = cursor.getColumnIndex(FoodContract.FoodEntry.COLUMN_FOOD_DESC);
+
+                name3 = cursor.getString(nameColumnIndex);
+                cal3     = cursor.getInt(calColumnIndex);
+                carb3 = cursor.getDouble(carbColumnIndex);
+                fat3  = cursor.getDouble(fatColumnIndex);
+                prot3 = cursor.getDouble(protColumnIndex);
+                desc3 = cursor.getString(descColumnIndex);
+            }
+            int mealcal = cal + cal2 + cal3;
+            double mealcarb = carb + carb2 + carb3;
+            double mealfat = fat + fat2 + fat3;
+            double mealprot = prot + prot2 + prot3;
+            double division;
+            double weight1 = 0, weight2= 0, weight3=0;
+
+            double aCarb1 = carb/mealcarb;
+            double aCarb2 = carb2/mealcarb;
+            double aCarb3 = carb3/mealcarb;
+            double aFat1 = fat/mealfat;
+            double aFat2 = fat2/mealfat;
+            double aFat3 = fat3/mealfat;
+            double aProt1 = prot/mealprot;
+            double aProt2 = prot2/mealprot;
+            double aProt3 = prot3/mealprot;
+
+            double food1ratio = (aCarb1+aFat1+aProt1)/3;
+            double food2ratio = (aCarb2+aFat2+aProt2)/3;
+            double food3ratio = (aCarb3+aFat3+aProt3)/3;
+
+
+            double food1cals = usersCals*food1ratio;
+            double food2cals = usersCals*food2ratio;
+            double food3cals = usersCals*food3ratio;
+
+
+            double food1division = food1cals/cal;
+            double food2division = food2cals/cal2;
+            double food3division = food3cals/cal3;
+
+
+
+            calories = cal*food1division + cal2*food2division + cal3*food3division;
+            carbs = carb*food1division + carb2*food2division + carb3*food3division;
+            fats = fat*food1division + fat2*food2division + fat3*food3division;
+            protein = prot*food1division + prot2*food2division + prot3*food3division;
+            weight1 = food1division*100;
+            weight2 = food2division*100;
+            weight3 = food3division*100;
+
+            double meal1percentage = carb/carbs;
+            TextView food1weight = (TextView) findViewById(R.id.food1_weight);
+            food1weight.setText("Food 1: " + name + ": " + round(weight1, 0) + " grams");
+            TextView food2weight = (TextView) findViewById(R.id.food2_weight);
+            food2weight.setText("Food 2: " + name2 + ": " + round(weight2, 0) + " grams");
+            TextView food3weight = (TextView) findViewById(R.id.food3_weight);
+            food3weight.setText("Food 3: " + name3 + ": " + round(weight3, 0) + " grams");
+            TextView mealdetails = (TextView) findViewById(R.id.meal_details);
+            mealdetails.setText("Meal calories: " + round(calories, 0) + " Carbs: " + round(carbs, 1) + " Fats: " + round(fats, 1) + " Protein: " + round(protein, 1));
         }
     }
 
