@@ -32,6 +32,16 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"></activity>
+        <activity
+            android:name=".RegisterActivity"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
+        <activity
+            android:name=".MealResultActivity"
+            android:label="@string/meal_result" />
+        <activity android:name=".HomeActivity" />
+        <activity
+            android:name=".SplashActivity"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,13 +49,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".RegisterActivity"
-            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
-        <activity
-            android:name=".MealResultActivity"
-            android:label="@string/meal_result" />
-        <activity android:name=".HomeActivity"></activity>
+        <activity android:name=".EditMacroActivity"></activity>
     </application>
 
 </manifest>
