@@ -72,7 +72,7 @@ public class LoginActivity extends Activity {
                                 String surname = jsonResponse.getString("surname");
 
 
-                                Intent intent = new Intent(LoginActivity.this, CreateMealActivity.class);
+                                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                                 startActivity(intent);
 
                             } else {

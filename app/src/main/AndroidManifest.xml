@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"></activity>
+            android:label="@string/app_name" />
         <activity
             android:name=".EditActivity"
             android:parentActivityName=".MainActivity">
@@ -20,8 +20,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity android:name=".CreateMealActivity"
-                   android:label = "@string/create_meal"/>
+        <activity
+            android:name=".CreateMealActivity"
+            android:label="@string/create_meal" />
 
         <provider
             android:name=".data.FoodProvider"
@@ -38,12 +39,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterActivity"
-            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"/>
-
-
-        <activity android:name=".MealResultActivity"
-                  android:label="@string/meal_result"></activity>
+        <activity
+            android:name=".RegisterActivity"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
+        <activity
+            android:name=".MealResultActivity"
+            android:label="@string/meal_result" />
+        <activity android:name=".HomeActivity"></activity>
     </application>
 
 </manifest>
