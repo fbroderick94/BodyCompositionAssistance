@@ -9,9 +9,16 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.support.design.widget.FloatingActionButton;
@@ -21,7 +28,7 @@ import java.util.ArrayList;
 import fyp.nuigalway.ie.bodycompostionassistance.data.FoodHelper;
 import fyp.nuigalway.ie.bodycompostionassistance.data.FoodContract.FoodEntry;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, SearchView.OnQueryTextListener {
 
 
     private static final int FOOD_LOADER = 0;
@@ -29,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     FoodAdapter cAdapter;
 
     ArrayList<Uri> foods;
+    String cursorFilter;
 
 
     @Override
@@ -49,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         });
 
 
-       // TextView searchView = (TextView) findViewById(R.id.etSearch);
+        final EditText searchView = (EditText) findViewById(R.id.etSearch);
         final ListView displayView = (ListView) findViewById(R.id.text_view_food);
 
         View emptyView = findViewById(R.id.empty_view);
@@ -60,6 +68,23 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         displayView.setAdapter(cAdapter);
 
 
+       /* searchView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String text = searchView.getText().toString().toLowerCase(Locale.getDefault());
+                cAdapter.filter(text);
+            }
+        });*/
 
         displayView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -94,16 +119,30 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public android.content.Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+
+        String selection;
+
+        if(cursorFilter != null){
+            selection =  "(" + FoodEntry.COLUMN_FOOD_NAME + " LIKE '%" + cursorFilter + "%')";
+        }
+        else
+        {
+            selection = null;
+        }
+
+
         String[] results = {
                 FoodEntry._ID,
                 FoodEntry.COLUMN_FOOD_NAME,
                 FoodEntry.COLUMN_FOOD_CAL
         };
 
+
+
         return new android.content.CursorLoader(this,
                 FoodEntry.CONTENT_URI,
                 results,
-                null,
+                selection,
                 null,
                 null);
     }
@@ -119,4 +158,44 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         cAdapter.swapCursor(null);
     }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String arg0) {
+
+        if(!TextUtils.isEmpty(arg0))
+        {
+            cursorFilter = arg0;
+        }
+        else {
+            cursorFilter = null;
+        }
+
+        getLoaderManager().restartLoader(0,null, this);
+        return true;
+    }
+
+
+
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        MenuItem item = menu.add("Search");
+        item.setIcon(R.drawable.ic_tick);
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        SearchView searchView = new SearchView(MainActivity.this);
+        searchView.setOnQueryTextListener(this);
+        item.setActionView(searchView);
+
+        return true;
+    }
+
+
+
 }

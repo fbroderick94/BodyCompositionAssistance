@@ -16,6 +16,7 @@ public class HomeActivity extends AppCompatActivity {
 
         LinearLayout Create_Meal = (LinearLayout) findViewById(R.id.create_meal);
         LinearLayout edit_food = (LinearLayout) findViewById(R.id.edit_food);
+        LinearLayout edit_macros = (LinearLayout) findViewById(R.id.edit_macros);
 
 
         Create_Meal.setOnClickListener(new View.OnClickListener() {
@@ -32,6 +33,13 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(HomeActivity.this, MainActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        edit_macros.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Intent intent = new Intent();
             }
         });
     }

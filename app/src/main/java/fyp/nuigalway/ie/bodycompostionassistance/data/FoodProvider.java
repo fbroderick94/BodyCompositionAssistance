@@ -152,8 +152,10 @@ public class FoodProvider extends ContentProvider {
         }
 
         getContext().getContentResolver().notifyChange(uri, null);
+        System.out.println(uri);
 
         return ContentUris.withAppendedId(uri, id);
+
     }
 
     @Override

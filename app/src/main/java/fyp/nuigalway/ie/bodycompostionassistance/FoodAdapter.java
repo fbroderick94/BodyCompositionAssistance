@@ -10,6 +10,8 @@ import android.view.animation.LayoutAnimationController;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 
+import java.util.Locale;
+
 import fyp.nuigalway.ie.bodycompostionassistance.data.FoodContract.FoodEntry;
 
 /**
@@ -56,4 +58,6 @@ public class FoodAdapter extends CursorAdapter {
             tvCals.setText(Integer.toString(cals) + " cals per 100g");
         }
     }
+
+
 }

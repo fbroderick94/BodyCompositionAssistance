@@ -30,4 +30,5 @@
     <string name="RegistrationSuccessful">Registration successfull</string>
     <string name="create_meal">Create your meal</string>
     <string name="meal_result">Your Meal</string>
+    <string name="edit">Edit Food</string>
 </resources>
