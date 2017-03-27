@@ -119,7 +119,7 @@ public class MealResultActivity extends AppCompatActivity  {
 
 
                 TextView food1weight = (TextView) findViewById(R.id.food1_weight);
-                food1weight.setText("Food 1: " + name + ": " + round(weight, 0) + " grams");
+                food1weight.setText(name + "\t\t " + round(weight, 0) + " grams");
 
             float m1 = (float) carbs;
             float m2 = (float) protein;
@@ -195,9 +195,9 @@ public class MealResultActivity extends AppCompatActivity  {
 
 
                 TextView food1weight = (TextView) findViewById(R.id.food1_weight);
-                food1weight.setText("Food 1: " + name + ": " + round(weight1, 0) + " grams");
+                food1weight.setText(name + "\t\t " + round(weight1, 0) + " grams");
                 TextView food2weight = (TextView) findViewById(R.id.food2_weight);
-                food2weight.setText("Food 2: " + name2 + ": " + round(weight2, 0) + " grams");
+                food2weight.setText(name2 + "\t\t " + round(weight2, 0) + " grams");
                 TextView mealdetails = (TextView) findViewById(R.id.meal_details);
                 mealdetails.setText("Meal calories: " + round(calories, 0) + " \nCarbs: " + round(carbs, 1) + " \nFats: " + round(fats, 1) + " \nProtein: " + round(protein, 1));
 
@@ -276,11 +276,11 @@ public class MealResultActivity extends AppCompatActivity  {
 
             double meal1percentage = carb/carbs;
             TextView food1weight = (TextView) findViewById(R.id.food1_weight);
-            food1weight.setText("Food 1: " + name + ": " + round(weight1, 0) + " grams");
+            food1weight.setText(name + "\t\t " + round(weight1, 0) + " grams");
             TextView food2weight = (TextView) findViewById(R.id.food2_weight);
-            food2weight.setText("Food 2: " + name2 + ": " + round(weight2, 0) + " grams");
+            food2weight.setText(name2 + "\t\t " + round(weight2, 0) + " grams");
             TextView food3weight = (TextView) findViewById(R.id.food3_weight);
-            food3weight.setText("Food 3: " + name3 + ": " + round(weight3, 0) + " grams");
+            food3weight.setText(name3 + "\t\t " + round(weight3, 0) + " grams");
             TextView mealdetails = (TextView) findViewById(R.id.meal_details);
             mealdetails.setText("Meal calories: " + round(calories, 0) + " Carbs: " + round(carbs, 1) + " Fats: " + round(fats, 1) + " Protein: " + round(protein, 1));
         }
@@ -318,7 +318,7 @@ class PieChart extends View
 {
     Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     float[] value_degree;
-    int[] colours = {Color.BLUE, Color.GREEN, Color.GRAY};
+    int[] colours = {Color.BLUE, Color.YELLOW, Color.RED};
     RectF rectf = new RectF(30,30,600,600);
     float temp = 0;
 

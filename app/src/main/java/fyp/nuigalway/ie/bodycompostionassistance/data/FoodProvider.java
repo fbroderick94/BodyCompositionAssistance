@@ -27,12 +27,15 @@ public class FoodProvider extends ContentProvider {
     private static final int FOODS = 100;
     private static final int FOODS_ID = 101;
 
+    //UriMatcher matches a content Uri to a code
     private static final UriMatcher UM = new UriMatcher(UriMatcher.NO_MATCH);
 
 
     static
     {
+        //the content uri for the foods table will map to the code 100
         UM.addURI(FoodContract.CONTENT_AUTHORITY, "foods", FOODS);
+        //the content uri for a specific entry in the db will map to the code 101
         UM.addURI(FoodContract.CONTENT_AUTHORITY, "foods/#", FOODS_ID);
     }
     @Override

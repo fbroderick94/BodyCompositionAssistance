@@ -43,7 +43,8 @@
         android:layout_above="@+id/etPasswordLogin"
         android:layout_alignLeft="@+id/etPasswordLogin"
         android:layout_alignStart="@+id/etPasswordLogin"
-        android:layout_marginBottom="12dp" />
+        android:layout_marginBottom="12dp"
+        style="@android:style/Widget.DeviceDefault.EditText" />
 
     <Button
         android:text="Login"

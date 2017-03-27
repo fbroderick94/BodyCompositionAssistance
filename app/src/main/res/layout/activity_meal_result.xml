@@ -14,21 +14,33 @@
     <TextView
         android:id="@+id/food1_weight"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"/>
     <TextView
         android:id="@+id/food2_weight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textSize="18dp"
+        android:textStyle="bold"
         android:layout_below="@+id/food1_weight"/>
     <TextView
         android:id="@+id/food3_weight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textSize="18dp"
+        android:textStyle="bold"
         android:layout_below="@+id/food2_weight"/>
     <TextView
         android:id="@+id/meal_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textSize="18dp"
+        android:textStyle="bold"
         android:layout_below="@+id/food3_weight"/>
 
     <RelativeLayout

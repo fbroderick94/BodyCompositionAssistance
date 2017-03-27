@@ -24,6 +24,7 @@ public final class FoodContract {
     {
 
 
+        //Content URI which allows access to the foods db table from the content provider
         public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_FOODS);
 
 
@@ -32,7 +33,10 @@ public final class FoodContract {
         public static final String ITEM_CONTENT =
                 ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_FOODS;
 
+        //Name of database table
         public final static String TABLE_NAME = "foods";
+
+        //All the columns that the table contains
         public final static String _ID = BaseColumns._ID;
         public final static String COLUMN_FOOD_NAME = "name";
         public final static String COLUMN_FOOD_CAL = "calories";
