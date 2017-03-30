@@ -54,7 +54,7 @@ public class CreateMealActivity extends AppCompatActivity implements LoaderManag
 
                 Uri currentUri = ContentUris.withAppendedId(FoodContract.FoodEntry.CONTENT_URI, id);
                 foods.add(currentUri);
-               // System.out.println(foods.get(0));
+
 
 
             }

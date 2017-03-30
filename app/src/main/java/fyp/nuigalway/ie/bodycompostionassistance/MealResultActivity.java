@@ -157,13 +157,17 @@ public class MealResultActivity extends AppCompatActivity  {
 
             if(myMeal.size()==2)
             {
+                //total values(food1 and food2 added together) of calories, carbs, fat and protein
                 int mealcal = cal + cal2;
                 double mealcarb = carb + carb2;
                 double mealfat = fat + fat2;
                 double mealprot = prot + prot2;
                 double division;
+                //weight of food 1 and food 2
                 double weight1 = 0, weight2= 0;
 
+
+                //getting the ratios of food1 vs food 2 for carbs, fats and protein
                 double aCarb1 = carb/mealcarb;
                 double aCarb2 = carb2/mealcarb;
                 double aFat1 = fat/mealfat;
@@ -171,14 +175,22 @@ public class MealResultActivity extends AppCompatActivity  {
                 double aProt1 = prot/mealprot;
                 double aProt2 = prot2/mealprot;
 
+
+                //calculating the overall ratio of carbs, fats and protein combined for each food
                 double food1ratio = (aCarb1+aFat1+aProt1)/3;
                 double food2ratio = (aCarb2+aFat2+aProt2)/3;
 
 
+                //whichever food has the higher ratio is assigned more of the calories entered by the user
                 double food1cals = usersCals*food1ratio;
                 double food2cals = usersCals*food2ratio;
 
 
+                /*To find out how much of the food the user need, divide the amount of calories assigned
+                by the amount of the per 100g of this food
+                Eg. If chicken is food 1 and is assigned 200 calories and it has a value of 100 calories
+                per 100g the division will be 200/100=2 --- this implies the weight will be
+                100g * 2 = 200g of chicken*/
                 double food1division = food1cals/cal;
                 double food2division = food2cals/cal2;
 
