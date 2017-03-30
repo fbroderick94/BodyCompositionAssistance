@@ -11,11 +11,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import fyp.nuigalway.ie.bodycompostionassistance.data.FoodContract;
+
+import static android.widget.Toast.makeText;
 
 public class CreateMealActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -64,9 +68,19 @@ public class CreateMealActivity extends AppCompatActivity implements LoaderManag
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(CreateMealActivity.this, MealResultActivity.class);
-                intent.putExtra("foods", foods);
-                startActivity(intent);
+                if(foods.size()==0){
+                   Toast.makeText(getApplicationContext(), "No food items have been selected", Toast.LENGTH_SHORT).show();
+                }
+                else if(foods.size()>3){
+                    Toast.makeText(getApplicationContext(), "A maximum of three food items can be selected", Toast.LENGTH_SHORT).show();
+
+                }
+                else
+                {
+                    Intent intent = new Intent(CreateMealActivity.this, MealResultActivity.class);
+                    intent.putExtra("foods", foods);
+                    startActivity(intent);
+                }
             }
         });
 

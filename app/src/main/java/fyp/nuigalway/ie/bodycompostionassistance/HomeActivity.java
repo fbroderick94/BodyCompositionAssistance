@@ -53,7 +53,7 @@ public class HomeActivity extends AppCompatActivity {
                 Intent loginintent=new Intent(HomeActivity.this,LoginActivity.class);
                 loginintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(loginintent);
-                
+
             }
         });
 
