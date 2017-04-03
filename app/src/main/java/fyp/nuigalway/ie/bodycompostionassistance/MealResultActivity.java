@@ -4,6 +4,7 @@ import android.app.LoaderManager;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -25,10 +26,10 @@ import fyp.nuigalway.ie.bodycompostionassistance.data.FoodContract;
 
 public class MealResultActivity extends AppCompatActivity  {
 
-    public int usersCals = 600;
-    public double usersCarbs = 60;
-    public double usersFats = 17.77;
-    public double usersProt = 50;
+    public int usersCals;
+    public double usersCarbs;
+    public double usersFats;
+    public double usersProt;
 
     private Uri currentUri;
     @Override
@@ -57,6 +58,13 @@ public class MealResultActivity extends AppCompatActivity  {
 
     private void calculateMeal(ArrayList<Uri> myMeal, String[] results)
     {
+
+            SharedPreferences pref = getSharedPreferences("User Carb values", MODE_PRIVATE);
+
+            usersCarbs = pref.getLong("Carbs", 0);
+            usersFats = pref.getLong("Fats", 1);
+            usersProt = pref.getLong("Protein", 2);
+            usersCals = (int) ((usersCarbs*4)+(usersFats*9)+(usersProt*4));
 
             currentUri = myMeal.get(0);
 
@@ -120,8 +128,13 @@ public class MealResultActivity extends AppCompatActivity  {
 
                 TextView food1weight = (TextView) findViewById(R.id.food1_weight);
                 food1weight.setText(name + "\t\t " + round(weight, 0) + " grams");
+                TextView tvmealcals = (TextView) findViewById(R.id.meal_cal_val);
+                tvmealcals.setText("" + round(calories, 0));
+                TextView mealdetails = (TextView) findViewById(R.id.meal_details);
+                mealdetails.setText("Carbs: " + round(carbs, 1) + " \nFats: " + round(fats, 1) + " \nProtein: " + round(protein, 1));
 
-            float m1 = (float) carbs;
+
+                float m1 = (float) carbs;
             float m2 = (float) protein;
             float m3 = (float) fats;
             float values[]={m1,m2,m3};
@@ -210,8 +223,10 @@ public class MealResultActivity extends AppCompatActivity  {
                 food1weight.setText(name + "\t\t " + round(weight1, 0) + " grams");
                 TextView food2weight = (TextView) findViewById(R.id.food2_weight);
                 food2weight.setText(name2 + "\t\t " + round(weight2, 0) + " grams");
+                TextView tvmealcals = (TextView) findViewById(R.id.meal_cal_val);
+                tvmealcals.setText("" + round(calories, 0));
                 TextView mealdetails = (TextView) findViewById(R.id.meal_details);
-                mealdetails.setText("Meal calories: " + round(calories, 0) + " \nCarbs: " + round(carbs, 1) + " \nFats: " + round(fats, 1) + " \nProtein: " + round(protein, 1));
+                mealdetails.setText("Carbs: " + round(carbs, 1) + " \nFats: " + round(fats, 1) + " \nProtein: " + round(protein, 1));
 
                 float m1 = (float) carbs;
                 float m2 = (float) protein;
@@ -293,8 +308,21 @@ public class MealResultActivity extends AppCompatActivity  {
             food2weight.setText(name2 + "\t\t " + round(weight2, 0) + " grams");
             TextView food3weight = (TextView) findViewById(R.id.food3_weight);
             food3weight.setText(name3 + "\t\t " + round(weight3, 0) + " grams");
+            TextView tvmealcals = (TextView) findViewById(R.id.meal_cal_val);
+            tvmealcals.setText("" + round(calories, 0));
             TextView mealdetails = (TextView) findViewById(R.id.meal_details);
-            mealdetails.setText("Meal calories: " + round(calories, 0) + " Carbs: " + round(carbs, 1) + " Fats: " + round(fats, 1) + " Protein: " + round(protein, 1));
+            mealdetails.setText("Carbs: " + round(carbs, 1) + " \nFats: " + round(fats, 1) + " \nProtein: " + round(protein, 1));
+
+
+            float m1 = (float) carbs;
+            float m2 = (float) protein;
+            float m3 = (float) fats;
+            float values[]={m1,m2,m3};
+            RelativeLayout linear=(RelativeLayout) findViewById(R.id.linear);
+
+            values=calculateData(values);
+            linear.addView(new PieChart(this,values));
+
         }
     }
 
@@ -331,7 +359,7 @@ class PieChart extends View
     Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     float[] value_degree;
     int[] colours = {Color.BLUE, Color.YELLOW, Color.RED};
-    RectF rectf = new RectF(30,30,600,600);
+    RectF rectf = new RectF(30,30,500,500);
     float temp = 0;
 
     public PieChart(Context context, float[] vals)

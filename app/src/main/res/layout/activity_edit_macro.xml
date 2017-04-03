@@ -10,4 +10,137 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="fyp.nuigalway.ie.bodycompostionassistance.EditMacroActivity">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/layout_cal">
+        <TextView
+            android:text="Calories"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="0dp"
+            android:textAlignment="center"
+            android:id="@+id/tvCalories"
+            android:textSize="30dp"/>
+
+        <TextView
+            android:text="0"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_below="@+id/tvCalories"
+            android:layout_marginTop="0dp"
+            android:id="@+id/tvCalorieValue"
+            android:layout_centerHorizontal="true"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:textSize="30dp"/>
+       </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:id="@+id/layout_fats"
+        android:layout_below="@+id/layout_carb"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:weightSum="1"
+        android:orientation="horizontal">
+        <TextView
+            android:text="Fats"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="0dp"
+            android:textAlignment="center"
+            android:id="@+id/tvFats"
+            android:layout_weight="0.5"/>
+
+        <EditText
+            android:text="0"
+            android:layout_weight="0.5"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="0dp"
+            android:id="@+id/etFats"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/layout_fats"
+        android:id="@+id/layout_prot"
+        android:weightSum="1"
+        android:orientation="horizontal">
+        <TextView
+            android:text="Protein"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:textAlignment="center"
+            android:layout_marginTop="0dp"
+            android:id="@+id/tvProt"
+            android:layout_weight="0.5"/>
+
+        <EditText
+            android:text="0"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="0dp"
+            android:id="@+id/etProt"
+            android:layout_centerHorizontal="true"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:layout_weight="0.5"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:id="@+id/layout_carb"
+        android:layout_below="@+id/layout_cal"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:weightSum="1"
+        android:orientation="horizontal">
+        <TextView
+            android:text="Carbohydrates"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:textAlignment="center"
+            android:layout_marginTop="0dp"
+            android:id="@+id/tvCarbs"
+            android:layout_weight="0.5"/>
+
+        <EditText
+            android:text="0"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="0dp"
+            android:id="@+id/etCarbs"
+            android:layout_centerHorizontal="true"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:layout_weight="0.5"/>
+    </LinearLayout>
+
+    <Button
+        android:text="Save Changes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_prot"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="42dp"
+        android:id="@+id/bMacro" />
+
+
 </RelativeLayout>

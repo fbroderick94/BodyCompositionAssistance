@@ -11,4 +11,13 @@
     android:background="#17c46b"
     tools:context="fyp.nuigalway.ie.bodycompostionassistance.SplashActivity">
 
+
+    <ImageView
+        android:id="@+id/app_logo"
+        android:layout_marginTop="200dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@mipmap/ic_applogo"
+        />
+
 </RelativeLayout>

@@ -18,6 +18,9 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class RegisterActivity extends Activity {
 
     @Override
@@ -70,11 +73,45 @@ public class RegisterActivity extends Activity {
                     }
                 };
 
-                RegisterRequest registerRequest = new RegisterRequest(firstname, surname, email, password, responseListener);
-                RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
-                queue.add(registerRequest);
+
+                if(!isValidEmail(email))
+                {
+                    etEmail.setError("Invalid email");
+                }
+                else if(!isValidPassword(password))
+                {
+                    etPassword.setError("Invalid password, Must be at least 5 characters");
+                }
+                else 
+                {
+                    RegisterRequest registerRequest = new RegisterRequest(firstname, surname, email, password, responseListener);
+                    RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
+                    queue.add(registerRequest);
+                }
             }
         });
+
+    }
+
+    private boolean isValidPassword(String password)
+    {
+        if(password!=null && password.length()>5){
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private boolean isValidEmail(String email)
+    {
+        String EMAIL_PATT = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+
+        Pattern pattern = Pattern.compile(EMAIL_PATT);
+        Matcher matcher = pattern.matcher(email);
+
+        return matcher.matches();
 
     }
 }

@@ -6,13 +6,17 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_editfood"
+        android:icon="@mipmap/ic_applogo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="@string/edit" />
+            android:label="@string/edit" >
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".HomeActivity" />
+        </activity>
         <activity
             android:name=".EditActivity"
             android:parentActivityName=".MainActivity">
@@ -22,7 +26,11 @@
         </activity>
         <activity
             android:name=".CreateMealActivity"
-            android:label="@string/create_meal" />
+            android:label="@string/create_meal" >
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".HomeActivity" />
+        </activity>
 
         <provider
             android:name=".data.FoodProvider"
@@ -39,7 +47,9 @@
         <activity
             android:name=".MealResultActivity"
             android:label="@string/meal_result" />
-        <activity android:name=".HomeActivity" />
+        <activity android:name=".HomeActivity" >
+
+        </activity>
         <activity
             android:name=".SplashActivity"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
@@ -49,7 +59,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EditMacroActivity"></activity>
+        <activity android:name=".EditMacroActivity"
+            android:label="Edit Your Macronutrients">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".HomeActivity" />
+        </activity>
     </application>
 
 </manifest>

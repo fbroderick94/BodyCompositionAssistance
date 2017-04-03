@@ -10,6 +10,8 @@ import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import java.io.IOException;
+
 import fyp.nuigalway.ie.bodycompostionassistance.data.FoodContract.*;
 
 /**
@@ -43,6 +45,13 @@ public class FoodProvider extends ContentProvider {
 
         dbHelper = new FoodHelper(getContext());
 
+        try {
+            dbHelper.createDataBase();
+
+        } catch (IOException e) {
+
+            System.out.println(e.toString());
+        }
         return true;
     }
 

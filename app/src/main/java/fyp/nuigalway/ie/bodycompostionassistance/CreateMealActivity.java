@@ -5,9 +5,15 @@ import android.content.ContentUris;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
+import android.text.TextUtils;
+import android.util.SparseArray;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -21,11 +27,13 @@ import fyp.nuigalway.ie.bodycompostionassistance.data.FoodContract;
 
 import static android.widget.Toast.makeText;
 
-public class CreateMealActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class CreateMealActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, SearchView.OnQueryTextListener {
 
     private static final int FOOD_LOADER = 0;
     ArrayList<Uri> foods;
     FoodAdapter cAdapter;
+
+    String cursorFilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,14 +54,28 @@ public class CreateMealActivity extends AppCompatActivity implements LoaderManag
 
 
         displayView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            private SparseArray<Boolean> hasClicked = new SparseArray<Boolean>();
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View itemView, int positon, long id) {
-
-
+            public void onItemClick(AdapterView<?> adapterView, View itemView, int position, long id) {
 
 
                 Uri currentUri = ContentUris.withAppendedId(FoodContract.FoodEntry.CONTENT_URI, id);
-                foods.add(currentUri);
+                if(hasClicked.get(position, false))
+                {
+                    //itemView.setBackgroundColor(Color.WHITE);
+                    hasClicked.put(position, false);
+                    foods.remove(currentUri);
+                }
+                else
+                {
+                    //itemView.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                    hasClicked.put(position, true);
+                    foods.add(currentUri);
+                }
+
+
+
 
 
 
@@ -90,6 +112,17 @@ public class CreateMealActivity extends AppCompatActivity implements LoaderManag
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+
+        String selection;
+
+        if(cursorFilter != null){
+            selection =  "(" + FoodContract.FoodEntry.COLUMN_FOOD_NAME + " LIKE '%" + cursorFilter + "%')";
+        }
+        else
+        {
+            selection = null;
+        }
+
         String[] results = {
                 FoodContract.FoodEntry._ID,
                 FoodContract.FoodEntry.COLUMN_FOOD_NAME,
@@ -99,7 +132,7 @@ public class CreateMealActivity extends AppCompatActivity implements LoaderManag
         return new android.content.CursorLoader(this,
                 FoodContract.FoodEntry.CONTENT_URI,
                 results,
-                null,
+                selection,
                 null,
                 null);
     }
@@ -112,5 +145,41 @@ public class CreateMealActivity extends AppCompatActivity implements LoaderManag
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         cAdapter.swapCursor(null);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String arg0) {
+        if(!TextUtils.isEmpty(arg0))
+        {
+            cursorFilter = arg0;
+        }
+        else {
+            cursorFilter = null;
+        }
+
+        getLoaderManager().restartLoader(0,null, this);
+        return true;
+    }
+
+
+
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        MenuItem item = menu.add("Search");
+        item.setIcon(R.drawable.ic_tick);
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        SearchView searchView = new SearchView(CreateMealActivity.this);
+        searchView.setOnQueryTextListener(this);
+        item.setActionView(searchView);
+
+        return true;
     }
 }
