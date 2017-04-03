@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         });
 
 
-        final EditText searchView = (EditText) findViewById(R.id.etSearch);
+
         final ListView displayView = (ListView) findViewById(R.id.text_view_food);
 
         View emptyView = findViewById(R.id.empty_view);
@@ -68,23 +68,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         displayView.setAdapter(cAdapter);
 
 
-       /* searchView.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                String text = searchView.getText().toString().toLowerCase(Locale.getDefault());
-                cAdapter.filter(text);
-            }
-        });*/
 
         displayView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

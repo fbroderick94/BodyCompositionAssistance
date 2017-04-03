@@ -93,7 +93,7 @@ public class RegisterActivity extends Activity {
 
     }
 
-    private boolean isValidPassword(String password)
+    public static boolean isValidPassword(String password)
     {
         if(password!=null && password.length()>5){
             return true;
@@ -104,14 +104,19 @@ public class RegisterActivity extends Activity {
         }
     }
 
-    private boolean isValidEmail(String email)
+    public static boolean isValidEmail(String email)
     {
+        if(email!=null)
+        {
         String EMAIL_PATT = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
         Pattern pattern = Pattern.compile(EMAIL_PATT);
         Matcher matcher = pattern.matcher(email);
 
         return matcher.matches();
+        }
+        return false;
+
 
     }
 }
