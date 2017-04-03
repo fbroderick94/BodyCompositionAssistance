@@ -12,12 +12,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class EditMacroActivity extends AppCompatActivity {
 
     Long carbs;
     Long fats;
     Long prot;
+
+    boolean success = false;
 
 
 
@@ -58,9 +61,13 @@ public class EditMacroActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                storeMacrosToSharedPreference();
-                Intent homeIntent = new Intent(EditMacroActivity.this, HomeActivity.class);
-                startActivity(homeIntent);
+
+                    storeMacrosToSharedPreference();
+                if(success)
+                {
+                    Intent homeIntent = new Intent(EditMacroActivity.this, HomeActivity.class);
+                    startActivity(homeIntent);
+                }
             }
         });
 
@@ -68,10 +75,9 @@ public class EditMacroActivity extends AppCompatActivity {
 
     private Long getCarbsFromSharedPreferences(){
         SharedPreferences carbprefs = getSharedPreferences("User Carb values", MODE_PRIVATE);
-       // SharedPreferences fatprefs = getSharedPreferences("User Fat values", MODE_PRIVATE);
-        //SharedPreferences protprefs = getSharedPreferences("User Protein values", MODE_PRIVATE);
+
         Long returnedcarb = carbprefs.getLong("Carbs", 0);
-        //Long returnedfat = fatprefs.getLong("Fats", 0);
+
         return returnedcarb;
     }
 
@@ -91,36 +97,107 @@ public class EditMacroActivity extends AppCompatActivity {
 
     private void storeMacrosToSharedPreference(){
 
+        Long cCarb=12345678910L, aFat=12345678910L, aProt=12345678910L;
+        boolean isCarbValid=false, isFatValid=false, isProtValid=false;
 
+
+        //Assigning Carbohydrates value
         String carbString = carbvalue.getText().toString();
         if(carbString.contains("."))
         {
             carbString = carbString.substring(0, carbString.indexOf("."));
         }
-        Long cCarb = Long.parseLong(carbString);
+
+        try
+        {
+             cCarb = Long.parseLong(carbString);
+
+            if(cCarb<=500)
+            {
+                isCarbValid = true;
+            }
+            else {
+                Toast.makeText(this, "Carb value must be 500g or less", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+        catch (NumberFormatException e)
+        {
+            Toast.makeText(this, "Carbs not a valid number", Toast.LENGTH_SHORT).show();
+        }
+
+
+
+        //Assigning Fats value
         String fatString = fatvalue.getText().toString();
         if(fatString.contains("."))
         {
             fatString = fatString.substring(0, fatString.indexOf("."));
+
         }
-        Long aFat = Long.parseLong(fatString);
+        try
+        {
+            aFat = Long.parseLong(fatString);
+            if(aFat<=500)
+            {
+                isFatValid = true;
+            }
+            else {
+                Toast.makeText(this, "Fat value must be 500g or less", Toast.LENGTH_SHORT).show();
+            }
+        }
+        catch(NumberFormatException e)
+        {
+            Toast.makeText(this, "Fats not a valid number", Toast.LENGTH_SHORT).show();
+        }
+
+
+        //Assigning Protein value
         String protString = protvalue.getText().toString();
         if(protString.contains("."))
         {
             protString = protString.substring(0, protString.indexOf("."));
         }
-        Long aProt = Long.parseLong(protString);
-        SharedPreferences prefs = getSharedPreferences("User Carb values", MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putLong("Carbs",cCarb);
-        editor.putLong("Fats", aFat);
-        editor.putLong("Protein", aProt);
-        editor.commit();
+        try
+        {
+            aProt = Long.parseLong(protString);
+            if(aProt<=500)
+            {
+                isProtValid = true;
+
+            }
+            else
+            {
+                Toast.makeText(this, "Protein value must be 500g or less", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+        catch (NumberFormatException e)
+        {
+            Toast.makeText(this, "Protein not a valid number", Toast.LENGTH_SHORT).show();
+        }
+
+        if(isCarbValid && isFatValid && isProtValid)
+        {
+            SharedPreferences prefs = getSharedPreferences("User Carb values", MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putLong("Carbs", cCarb);
+            editor.putLong("Fats", aFat);
+            editor.putLong("Protein", aProt);
+            editor.commit();
+            success = true;
+
+
+        }
+
+
+        System.out.println("Carb: " + isCarbValid);
+        System.out.println("Fats: " + isFatValid);
+        System.out.println("Protein: " + isProtValid);
+        System.out.println("Success: " + success);
     }
 
-    public Long getProt() {
-        return prot;
-    }
+
 
     public boolean onCreateOptionsMenu(Menu m)
     {
@@ -158,15 +235,5 @@ public class EditMacroActivity extends AppCompatActivity {
             return;
     }
 
-    public Long getCarbs() {
-        return carbs;
-    }
 
-    public Long getFats() {
-        return fats;
-    }
-
-    public Long getCalories(){
-        return calculation;
-    }
 }

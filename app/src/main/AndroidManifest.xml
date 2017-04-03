@@ -46,7 +46,11 @@
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
         <activity
             android:name=".MealResultActivity"
-            android:label="@string/meal_result" />
+            android:label="@string/meal_result" >
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".CreateMealActivity" />
+        </activity>
         <activity android:name=".HomeActivity" >
 
         </activity>

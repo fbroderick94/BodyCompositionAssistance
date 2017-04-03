@@ -23,6 +23,10 @@ public class ValidPasswordTest
     }
 
     @Test
+    public void PasswordValidTest_Empty_ReturnsFalse(){
+        assertFalse(RegisterActivity.isValidPassword(""));
+    }
+    @Test
     public void PasswordValidTest_Null_ReturnsFalse(){
         assertFalse(RegisterActivity.isValidPassword(null));
     }

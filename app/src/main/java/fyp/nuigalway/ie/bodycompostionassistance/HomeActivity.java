@@ -52,6 +52,7 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent loginintent=new Intent(HomeActivity.this,LoginActivity.class);
                 loginintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                loginintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(loginintent);
 
             }

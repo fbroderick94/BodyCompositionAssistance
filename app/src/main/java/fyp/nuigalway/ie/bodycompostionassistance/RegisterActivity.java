@@ -80,7 +80,7 @@ public class RegisterActivity extends Activity {
                 }
                 else if(!isValidPassword(password))
                 {
-                    etPassword.setError("Invalid password, Must be at least 5 characters");
+                    etPassword.setError("Invalid password, Must be at least 6 characters");
                 }
                 else 
                 {
